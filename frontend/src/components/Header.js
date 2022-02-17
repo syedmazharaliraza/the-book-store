@@ -15,12 +15,12 @@ const Header = () => {
             <Nav className='ms-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link className='px-4'>
-                  <i class='fa-solid fa-cart-shopping'></i> Cart
+                  <i className='fa-solid fa-cart-shopping'></i> Cart
                 </Nav.Link>
               </LinkContainer>
               <LinkContainer to='/login'>
                 <Nav.Link className='px-4'>
-                  <i class='fa-solid fa-user'></i> Sign in
+                  <i className='fa-solid fa-user'></i> Sign in
                 </Nav.Link>
               </LinkContainer>
             </Nav>
