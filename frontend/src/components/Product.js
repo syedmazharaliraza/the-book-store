@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import Rating from "./Rating";
 import { Link } from "react-router-dom";
 
-const product = (props) => {
+const Product = (props) => {
   const { product } = props;
   return (
     <Card className='my-3 py-3 px-1 rounded'>
@@ -12,7 +12,7 @@ const product = (props) => {
       </Link>
       <Card.Body>
         <Link to={`/product/${product._id}`}>
-          <Card.Title as='h5'>
+          <Card.Title as='div'>
             <strong>{product.name}</strong>
           </Card.Title>
         </Link>
@@ -22,10 +22,10 @@ const product = (props) => {
             numberOfRatings={product.numOfRatings}
           />
         </Card.Text>
-        <Card.Text as='h3'>&#8377; {product.price}</Card.Text>
+        <Card.Text as='h4'>&#8377; {product.price}</Card.Text>
       </Card.Body>
     </Card>
   );
 };
 
-export default product;
+export default Product;
