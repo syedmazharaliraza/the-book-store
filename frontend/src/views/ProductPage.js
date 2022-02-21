@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Col, Row, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Rating";
-import axios from "axios";
+import { listProduct } from "../actions/productActions";
+import Message from "../components/ui/Message";
+import Loader from "../components/ui/Loader";
 
 const ProductPage = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({});
+
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, product, error } = productDetails;
+
   useEffect(() => {
-    const fetchProduct = async () => {
-      const resp = await axios.get(`/api/products/${id}`);
-      setProduct(resp.data);
-    };
-    fetchProduct();
-  }, []);
+    dispatch(listProduct(id));
+  }, [dispatch]);
 
   const [isReadingmore, setIsReadingmore] = useState(false);
 
@@ -42,66 +45,79 @@ const ProductPage = () => {
       <Link className='btn btn-light my-4' to='/'>
         &lt; Go back
       </Link>
-      <Row className='my-4'>
-        <Col md={4} lg={3}>
-          <Image className='p-2' src={product.image} alt={product.name} fluid />
-        </Col>
-        <Col md={5} lg={6}>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h3>{product.name}</h3>
-              <small className='mb-1 d-inline-block'>By {product.author}</small>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Rating
-                rating={product.rating}
-                numberOfRatings={`${product.numOfRatings}`}
-              />
-            </ListGroup.Item>
-            <ListGroup.Item>Price: &#8377;{product.price}</ListGroup.Item>
-            <ListGroup.Item>
-              <div style={descriptionStyle}>
-                Description: {product.description}
-              </div>
-              <Link onClick={readMoreHandler} to='#'>
-                {`Read ${isReadingmore ? "less" : "more"}`}
-              </Link>
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-        <Col md={3}>
-          <Card>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <Row className='my-4'>
+          <Col md={4} lg={3}>
+            <Image
+              className='p-2'
+              src={product.image}
+              alt={product.name}
+              fluid
+            />
+          </Col>
+          <Col md={5} lg={6}>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <Row>
-                  <Col>Price:</Col>
-                  <Col>
-                    <strong>&#8377;{product.price}</strong>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Row>
-                  <Col>Status:</Col>
-                  <Col>
-                    {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
-                  </Col>
-                </Row>
+                <h3>{product.name}</h3>
+                <small className='mb-1 d-inline-block'>
+                  By {product.author}
+                </small>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Button
-                  className='btn-block'
-                  type='button'
-                  disabled={product.countInStock === 0}
-                >
-                  Add To Cart
-                </Button>
+                <Rating
+                  rating={product.rating}
+                  numberOfRatings={`${product.numOfRatings}`}
+                />
+              </ListGroup.Item>
+              <ListGroup.Item>Price: &#8377;{product.price}</ListGroup.Item>
+              <ListGroup.Item>
+                <div style={descriptionStyle}>
+                  Description: {product.description}
+                </div>
+                <Link onClick={readMoreHandler} to='#'>
+                  {`Read ${isReadingmore ? "less" : "more"}`}
+                </Link>
               </ListGroup.Item>
             </ListGroup>
-          </Card>
-        </Col>
-      </Row>
+          </Col>
+          <Col md={3}>
+            <Card>
+              <ListGroup variant='flush'>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Price:</Col>
+                    <Col>
+                      <strong>&#8377;{product.price}</strong>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Status:</Col>
+                    <Col>
+                      {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Button
+                    className='btn-block'
+                    type='button'
+                    disabled={product.countInStock === 0}
+                  >
+                    Add To Cart
+                  </Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };
