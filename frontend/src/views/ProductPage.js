@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Col, Row, Image, ListGroup, Card, Button } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  Form,
+} from "react-bootstrap";
 import Rating from "../components/Rating";
 import { listProduct } from "../actions/productActions";
 import Message from "../components/ui/Message";
 import Loader from "../components/ui/Loader";
+import { useNavigate } from "react-router-dom";
 
 const ProductPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -16,14 +26,19 @@ const ProductPage = () => {
 
   useEffect(() => {
     dispatch(listProduct(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const [isReadingmore, setIsReadingmore] = useState(false);
+  const [qty, setQty] = useState(1);
 
   const [descriptionStyle, setDescriptionStyle] = useState({
     height: "75px",
     overflow: "hidden",
   });
+
+  const addtoCartHandler = () => {
+    navigate(`/cart/${id}?qty=${qty}`);
+  };
 
   const readMoreHandler = (event) => {
     event.preventDefault();
@@ -53,7 +68,7 @@ const ProductPage = () => {
         <Row className='my-4'>
           <Col md={4} lg={3}>
             <Image
-              className='p-2'
+              className='p-2 mx-auto d-inline-block'
               src={product.image}
               alt={product.name}
               fluid
@@ -70,10 +85,12 @@ const ProductPage = () => {
               <ListGroup.Item>
                 <Rating
                   rating={product.rating}
-                  numberOfRatings={`${product.numOfRatings}`}
+                  numberOfRatings={product.numOfRatings}
                 />
               </ListGroup.Item>
-              <ListGroup.Item>Price: &#8377;{product.price}</ListGroup.Item>
+              <ListGroup.Item>
+                Price: &#8377; {product.sku[0].price}
+              </ListGroup.Item>
               <ListGroup.Item>
                 <div style={descriptionStyle}>
                   Description: {product.description}
@@ -91,7 +108,7 @@ const ProductPage = () => {
                   <Row>
                     <Col>Price:</Col>
                     <Col>
-                      <strong>&#8377;{product.price}</strong>
+                      <strong>&#8377;{product.sku[0].price}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -100,15 +117,41 @@ const ProductPage = () => {
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
+                      {product.sku[0].quantity > 0
+                        ? "In Stock"
+                        : "Out Of Stock"}
                     </Col>
                   </Row>
                 </ListGroup.Item>
+                {product.sku[0].quantity > 0 && (
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Qty</Col>
+                      <Col>
+                        <Form.Control
+                          as='select'
+                          value={qty}
+                          onChange={(e) => {
+                            setQty(e.target.value);
+                          }}
+                        >
+                          {[...Array(product.sku[0].quantity).keys()].map(
+                            (value) => (
+                              <option>{value + 1}</option>
+                            )
+                          )}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                )}
+
                 <ListGroup.Item>
                   <Button
+                    onClick={addtoCartHandler}
                     className='btn-block'
                     type='button'
-                    disabled={product.countInStock === 0}
+                    disabled={product.sku[0].quantity === 0}
                   >
                     Add To Cart
                   </Button>

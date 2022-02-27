@@ -18,9 +18,7 @@ const app = express();
 
 // Middlewares
 app.use("/api/products", productRoutes);
-
 app.use("/api/products/:id", productRoutes);
-
 app.use(notFoundHandler);
 app.use(errorHandler);
 

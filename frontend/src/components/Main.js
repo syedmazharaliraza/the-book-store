@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 import Home from "../views/Home";
 import ProductPage from "../views/ProductPage";
+import CartPage from "../views/CartPage";
 
 const Main = () => {
   return (
@@ -11,6 +12,10 @@ const Main = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/product/:id' element={<ProductPage />} />
+          <Route path='/cart'>
+            <Route path='' element={<CartPage />} />
+            <Route path=':id' element={<CartPage />} />
+          </Route>
         </Routes>
       </Container>
     </main>

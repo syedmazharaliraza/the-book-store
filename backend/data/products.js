@@ -6,12 +6,12 @@ const products = [
       {
         feature: "Soft Cover",
         price: 301.01,
-        quanity: 3,
+        quantity: 3,
       },
       {
         feature: "Hard Cover",
         price: 401.01,
-        quanity: 5,
+        quantity: 5,
       },
     ],
     description:
@@ -28,12 +28,12 @@ const products = [
       {
         feature: "Soft Cover",
         price: 301.01,
-        quanity: 3,
+        quantity: 3,
       },
       {
         feature: "Hard Cover",
         price: 401.01,
-        quanity: 5,
+        quantity: 5,
       },
     ],
     description:
@@ -50,12 +50,12 @@ const products = [
       {
         feature: "Soft Cover",
         price: 301.01,
-        quanity: 3,
+        quantity: 3,
       },
       {
         feature: "Hard Cover",
         price: 401.01,
-        quanity: 5,
+        quantity: 5,
       },
     ],
     description:
@@ -72,12 +72,12 @@ const products = [
       {
         feature: "Soft Cover",
         price: 301.01,
-        quanity: 3,
+        quantity: 3,
       },
       {
         feature: "Hard Cover",
         price: 401.01,
-        quanity: 5,
+        quantity: 5,
       },
     ],
     description:
@@ -94,12 +94,12 @@ const products = [
       {
         feature: "Soft Cover",
         price: 301.01,
-        quanity: 3,
+        quantity: 0,
       },
       {
         feature: "Hard Cover",
         price: 401.01,
-        quanity: 5,
+        quantity: 5,
       },
     ],
     description:
@@ -116,12 +116,12 @@ const products = [
       {
         feature: "Soft Cover",
         price: 301.01,
-        quanity: 3,
+        quantity: 3,
       },
       {
         feature: "Hard Cover",
         price: 401.01,
-        quanity: 5,
+        quantity: 5,
       },
     ],
     description:
@@ -138,12 +138,12 @@ const products = [
       {
         feature: "Soft Cover",
         price: 301.01,
-        quanity: 3,
+        quantity: 3,
       },
       {
         feature: "Hard Cover",
         price: 401.01,
-        quanity: 5,
+        quantity: 5,
       },
     ],
     description:
@@ -160,12 +160,12 @@ const products = [
       {
         feature: "Soft Cover",
         price: 301.01,
-        quanity: 3,
+        quantity: 3,
       },
       {
         feature: "Hard Cover",
         price: 401.01,
-        quanity: 5,
+        quantity: 5,
       },
     ],
     description:
