@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import colors from "colors";
 import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import {
   notFoundHandler,
   errorHandler,
@@ -17,6 +18,8 @@ connectDB();
 const app = express();
 
 // Middlewares
+app.use(express.json());
+app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/products/:id", productRoutes);
 app.use(notFoundHandler);
