@@ -1,12 +1,12 @@
 main {
-    min-height: 80vh;
+  min-height: 80vh;
 }
 
 footer {
-    min-height: 10vh;
-    border-top: 1px solid #dedede;
+  min-height: 10vh;
+  border-top: 1px solid #dedede;
 }
 
 * {
-    font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }

@@ -24,6 +24,7 @@ const CartPage = () => {
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
   const quantity = searchParams.get("qty") ? searchParams.get("qty") : 1;
 
   useEffect(() => {
@@ -36,8 +37,6 @@ const CartPage = () => {
   const checkoutHandler = () => {
     navigate("/login?redirect=shipping");
   };
-
-  console.log(cartItems);
 
   return (
     <Row>

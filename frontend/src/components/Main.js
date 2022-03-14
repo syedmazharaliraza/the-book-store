@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../views/Home";
 import ProductPage from "../views/ProductPage";
 import CartPage from "../views/CartPage";
+import LoginPage from "../views/LoginPage";
 
 const Main = () => {
   return (
@@ -11,6 +12,7 @@ const Main = () => {
       <Container>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/login' element={<LoginPage />} />
           <Route path='/product/:id' element={<ProductPage />} />
           <Route path='/cart'>
             <Route path='' element={<CartPage />} />
