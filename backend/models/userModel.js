@@ -23,7 +23,6 @@ const userSchema = mongoose.Schema(
       default: false,
     },
     billingAddress: addressSchema,
-    shippingAddress: addressSchema,
   },
   {
     timestamps: true,
