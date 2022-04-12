@@ -22,7 +22,7 @@ export const authUser = asyncHandler(async (req, res) => {
 });
 
 export const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, billingAddress } = req.body;
   const userExists = await User.findOne({ email });
 
   if (userExists) {
@@ -34,6 +34,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password: bcrypt.hashSync(password, 10),
+    billingAddress,
   });
 
   if (user) {
@@ -42,6 +43,7 @@ export const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      billingAddress: user.billingAddress,
       token: generateToken(user._id),
     });
   } else {
@@ -58,6 +60,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      billingAddress: user.billingAddress,
     });
   } else {
     res.status(404);
