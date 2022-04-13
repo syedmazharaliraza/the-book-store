@@ -40,7 +40,7 @@ const RegisterPage = () => {
 
   function submitHandler(e) {
     e.preventDefault();
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       setMessage("Password doesn't match");
     } else {
       setMessage(null);
@@ -154,6 +154,20 @@ const RegisterPage = () => {
             </Form.Group>
           </Col>
         </Row>
+        <Form.Group controlId='pincode' className='my-3'>
+          <Form.Label style={{ fontWeight: 500 }}>Pin Code</Form.Label>
+          <Form.Control
+            type='number'
+            placeholder='Enter pincode'
+            value={billingAddress.pincode}
+            onChange={(e) => {
+              setBillingAddress({
+                ...billingAddress,
+                pincode: e.target.value,
+              });
+            }}
+          ></Form.Control>
+        </Form.Group>
         <Button type='submit' variant='primary' className='my-3'>
           Sign Up
         </Button>
