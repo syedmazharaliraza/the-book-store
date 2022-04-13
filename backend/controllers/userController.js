@@ -39,7 +39,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
-      id: user._id,
+      _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
@@ -53,7 +53,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 });
 
 export const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.params.id);
   if (user) {
     res.json({
       _id: user._id,
@@ -61,6 +61,32 @@ export const getUserProfile = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       billingAddress: user.billingAddress,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+export const updateUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+    if (req.body.password) {
+      user.password = bcrypt.hashSync(req.body.password, 10);
+    }
+    user.billingAddress = req.body.billingAddress || user.billingAddress;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      billingAddress: updatedUser.billingAddress,
     });
   } else {
     res.status(404);

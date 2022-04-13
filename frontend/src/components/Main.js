@@ -6,6 +6,7 @@ import ProductPage from "../views/ProductPage";
 import CartPage from "../views/CartPage";
 import LoginPage from "../views/LoginPage";
 import RegisterPage from "../views/RegisterPage";
+import ProfilePage from "../views/ProfilePage";
 
 const Main = () => {
   return (
@@ -15,6 +16,7 @@ const Main = () => {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/product/:id' element={<ProductPage />} />
           <Route path='/cart'>
             <Route path='' element={<CartPage />} />
