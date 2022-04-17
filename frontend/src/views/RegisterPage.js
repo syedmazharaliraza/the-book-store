@@ -17,6 +17,7 @@ const RegisterPage = () => {
     city: null,
     state: null,
     pincode: null,
+    phoneNumber: null,
     landmark: null,
   });
   const [message, setMessage] = useState(null);
@@ -154,20 +155,54 @@ const RegisterPage = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Form.Group controlId='pincode' className='my-3'>
-          <Form.Label style={{ fontWeight: 500 }}>Pin Code</Form.Label>
+        <Form.Group controlId='landmark' className='my-3'>
+          <Form.Label style={{ fontWeight: 500 }}>Landmark</Form.Label>
           <Form.Control
-            type='number'
-            placeholder='Enter pincode'
-            value={billingAddress.pincode}
+            type='text'
+            placeholder='Enter landmark'
+            value={billingAddress.landmark}
             onChange={(e) => {
               setBillingAddress({
                 ...billingAddress,
-                pincode: e.target.value,
+                landmark: e.target.value,
               });
             }}
           ></Form.Control>
         </Form.Group>
+        <Row>
+          <Col sm={12} md={7}>
+            <Form.Group controlId='phoneNumber' className='my-3'>
+              <Form.Label style={{ fontWeight: 500 }}>Phone Number</Form.Label>
+              <Form.Control
+                type='number'
+                placeholder='Enter phone number'
+                value={billingAddress.phoneNumber}
+                onChange={(e) => {
+                  setBillingAddress({
+                    ...billingAddress,
+                    phoneNumber: e.target.value,
+                  });
+                }}
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+          <Col sm={12} md={5}>
+            <Form.Group controlId='pincode' className='my-3'>
+              <Form.Label style={{ fontWeight: 500 }}>Pin Code</Form.Label>
+              <Form.Control
+                type='number'
+                placeholder='Enter pincode'
+                value={billingAddress.pincode}
+                onChange={(e) => {
+                  setBillingAddress({
+                    ...billingAddress,
+                    pincode: e.target.value,
+                  });
+                }}
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
         <Button type='submit' variant='primary' className='my-3'>
           Sign Up
         </Button>

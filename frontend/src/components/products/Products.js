@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-import Product from "../components/Product";
-import { listProducts } from "../actions/productActions";
+import Product from "./Product";
+import { listProducts } from "../../actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
-import Message from "./ui/Message";
-import Loader from "./ui/Loader";
+import Message from "../ui/Message";
+import Loader from "../ui/Loader";
 
 const Products = () => {
   const dispatch = useDispatch();

@@ -16,6 +16,7 @@ const Profile = () => {
     city: null,
     state: null,
     pincode: null,
+    phoneNumber: null,
     landmark: null,
   });
   const [message, setMessage] = useState(null);
@@ -156,6 +157,34 @@ const Profile = () => {
               setBillingAddress({
                 ...billingAddress,
                 state: e.target.value,
+              });
+            }}
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group controlId='landmark' className='my-3'>
+          <Form.Label style={{ fontWeight: 500 }}>Landmark</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Enter landmark'
+            value={billingAddress.landmark}
+            onChange={(e) => {
+              setBillingAddress({
+                ...billingAddress,
+                landmark: e.target.value,
+              });
+            }}
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group controlId='phoneNumber' className='my-3'>
+          <Form.Label style={{ fontWeight: 500 }}>Phone Number</Form.Label>
+          <Form.Control
+            type='number'
+            placeholder='Enter phone number'
+            value={billingAddress.phoneNumber}
+            onChange={(e) => {
+              setBillingAddress({
+                ...billingAddress,
+                phoneNumber: e.target.value,
               });
             }}
           ></Form.Control>
