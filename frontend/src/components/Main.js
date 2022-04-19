@@ -9,6 +9,7 @@ import RegisterPage from "../views/RegisterPage";
 import ProfilePage from "../views/ProfilePage";
 import ShippingPage from "../views/ShippingPage";
 import PaymentPage from "../views/PaymentPage";
+import PlaceOrderPage from "../views/PlaceOrderPage";
 
 const Main = () => {
   return (
@@ -26,6 +27,7 @@ const Main = () => {
           </Route>
           <Route path='/shipping' element={<ShippingPage />} />
           <Route path='/payment' element={<PaymentPage />} />
+          <Route path='/placeorder' element={<PlaceOrderPage />} />
         </Routes>
       </Container>
     </main>

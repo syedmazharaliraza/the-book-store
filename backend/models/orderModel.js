@@ -12,11 +12,6 @@ const orderSchema = mongoose.Schema(
 
     orderItems: [orderedItemsSchema],
 
-    amount: {
-      type: Number,
-      required: true,
-    },
-
     preTax: {
       type: Number,
       required: true,
@@ -40,6 +35,7 @@ const orderSchema = mongoose.Schema(
     orderStatus: {
       type: String,
       required: true,
+      default: "Order yet to confirm",
     },
 
     isPaid: {
@@ -50,7 +46,7 @@ const orderSchema = mongoose.Schema(
 
     paidAt: {
       type: Date,
-      required: true,
+      // required: true,
     },
 
     paymentResult: {
@@ -71,7 +67,6 @@ const orderSchema = mongoose.Schema(
     },
     deliveredAt: {
       type: Date,
-      required: true,
     },
   },
   {

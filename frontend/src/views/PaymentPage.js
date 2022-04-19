@@ -42,6 +42,7 @@ const PaymentPage = () => {
                 id='PayPal'
                 name='paymentMethod'
                 value='PayPal'
+                checked={paymentMethod === "PayPal"}
                 onChange={(e) => {
                   setPaymentMethod(e.target.value);
                 }}
@@ -53,6 +54,7 @@ const PaymentPage = () => {
                 id='Stripe'
                 name='paymentMethod'
                 value='Stripe'
+                checked={paymentMethod === "Stripe"}
                 onChange={(e) => {
                   setPaymentMethod(e.target.value);
                 }}
