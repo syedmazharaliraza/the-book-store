@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Message from "../components/ui/Message";
 import CheckoutSteps from "../components/checkout/CheckoutSteps";
+import { createOrder } from "../actions/orderActions";
 
 const PlaceOrderPage = () => {
+  const navigate = useNavigate();
+
   const cart = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const paymentMethod = useSelector((state) => state.cart.paymentMethod);
+
+  const dispatch = useDispatch();
+
+  const { success, order, error } = useSelector((state) => state.createOrder);
+
+  useEffect(() => {
+    if (!userInfo) {
+      return navigate(`/login`);
+    }
+    if (!paymentMethod) {
+      return navigate("/payment");
+    }
+    if (success) {
+      navigate(`/order/${order._id}`);
+    }
+    // eslint-disable-next-line
+  }, [navigate, success, paymentMethod, userInfo]);
 
   cart.itemsPrice = cart.cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -20,7 +43,18 @@ const PlaceOrderPage = () => {
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
   const PlaceOrderHandler = () => {
-    console.log("order");
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        billingAddress: userInfo.billingAddress,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+        paymentMethod: cart.paymentMethod,
+      })
+    );
   };
   return (
     <>
@@ -85,6 +119,12 @@ const PlaceOrderPage = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
+                  <Col>Items</Col>
+                  <Col>&#8377;{cart.itemsPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
                   <Col>Shipping</Col>
                   <Col>&#8377;{cart.shippingPrice}</Col>
                 </Row>
@@ -100,6 +140,9 @@ const PlaceOrderPage = () => {
                   <Col>Total</Col>
                   <Col>&#8377;{cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Form, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { savePaymentMethod } from "../actions/cartActions";
@@ -8,16 +8,22 @@ import FormContainer from "../components/FormContainer";
 
 const PaymentPage = () => {
   const shippingAddress = useSelector((state) => state.cart.shippingAddress);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
-  console.log(paymentMethod);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  if (!shippingAddress) {
-    navigate("/shipping");
-  }
+  useEffect(() => {
+    if (!userInfo) {
+      return navigate(`/login`);
+    }
+    if (!shippingAddress) {
+      return navigate("/shipping");
+    }
+  }, [navigate, userInfo, shippingAddress]);
 
   function submitHandler(e) {
     e.preventDefault();

@@ -5,6 +5,11 @@ const orderedItemsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
+
   image: {
     type: String,
     required: true,
@@ -18,18 +23,6 @@ const orderedItemsSchema = mongoose.Schema({
     required: true,
   },
   price: {
-    type: Number,
-    required: true,
-  },
-  discount: {
-    type: Number,
-    required: true,
-  },
-  preTax: {
-    type: Number,
-    required: true,
-  },
-  postTax: {
     type: Number,
     required: true,
   },
