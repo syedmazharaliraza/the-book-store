@@ -13,6 +13,7 @@ export const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      billingAddress: user.billingAddress,
       token: generateToken(user._id),
     });
   } else {

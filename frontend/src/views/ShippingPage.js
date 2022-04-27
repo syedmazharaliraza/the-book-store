@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,8 @@ import FormContainer from "../components/FormContainer";
 
 const ShippingPage = () => {
   const shippingAddress = useSelector((state) => state.cart.shippingAddress);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
@@ -18,6 +20,12 @@ const ShippingPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userInfo) {
+      return navigate(`/login`);
+    }
+  }, [navigate, userInfo]);
 
   function submitHandler(e) {
     e.preventDefault();

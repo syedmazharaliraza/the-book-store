@@ -10,6 +10,7 @@ import ProfilePage from "../views/ProfilePage";
 import ShippingPage from "../views/ShippingPage";
 import PaymentPage from "../views/PaymentPage";
 import PlaceOrderPage from "../views/PlaceOrderPage";
+import OrderPage from "../views/OrderPage";
 
 const Main = () => {
   return (
@@ -28,6 +29,7 @@ const Main = () => {
           <Route path='/shipping' element={<ShippingPage />} />
           <Route path='/payment' element={<PaymentPage />} />
           <Route path='/placeorder' element={<PlaceOrderPage />} />
+          <Route path='/order/:id' element={<OrderPage />} />
         </Routes>
       </Container>
     </main>

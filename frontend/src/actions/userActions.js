@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MYORDERS_DETAILS_RESET } from "../constants/orderConstants";
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -114,4 +115,5 @@ export const logout = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_PROFILE_RESET });
   dispatch({ type: USER_UPDATE_PROFILE_RESET });
+  dispatch({ type: MYORDERS_DETAILS_RESET });
 };
