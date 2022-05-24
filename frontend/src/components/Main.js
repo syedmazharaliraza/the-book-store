@@ -12,6 +12,9 @@ import PaymentPage from "../views/PaymentPage";
 import PlaceOrderPage from "../views/PlaceOrderPage";
 import OrderPage from "../views/OrderPage";
 import UserListPage from "../views/UserListPage";
+import EditUserPage from "../views/EditUserPage";
+import ProductListPage from "../views/ProductListPage";
+import ProductEditPage from "../views/ProductEditPage";
 
 const Main = () => {
   return (
@@ -33,6 +36,9 @@ const Main = () => {
           <Route path='/order/:id' element={<OrderPage />} />
           <Route path='/admin'>
             <Route path='userlist' element={<UserListPage />} />
+            <Route path='user/:id/edit' element={<EditUserPage />} />
+            <Route path='productList' element={<ProductListPage />} />
+            <Route path='product/:id/edit' element={<ProductEditPage />} />
           </Route>
         </Routes>
       </Container>

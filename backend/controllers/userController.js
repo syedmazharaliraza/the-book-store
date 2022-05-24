@@ -74,12 +74,10 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    user.isAdmin = req.body.isAdmin || user.isAdmin;
     if (req.body.password) {
       user.password = bcrypt.hashSync(req.body.password, 10);
     }
     user.billingAddress = req.body.billingAddress || user.billingAddress;
-
     const updatedUser = await user.save();
 
     res.json({
@@ -95,9 +93,36 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+export const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin;
+    user.billingAddress = req.body.billingAddress || user.billingAddress;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
 export const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
+});
+
+export const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password");
+  res.json(user);
 });
 
 export const deleteUser = asyncHandler(async (req, res) => {

@@ -45,7 +45,7 @@ const RegisterPage = () => {
       setMessage("Password doesn't match");
     } else {
       setMessage(null);
-      dispatch(register(name, email, password, billingAddress));
+      dispatch(register({ name, email, password, billingAddress }));
     }
   }
   return (

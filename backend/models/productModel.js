@@ -12,22 +12,25 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    sku: [
-      {
-        feature: {
-          type: String,
-          required: true,
+    sku: {
+      type: [
+        {
+          feature: {
+            type: String,
+            required: true,
+          },
+          price: {
+            type: Number,
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            required: true,
+          },
         },
-        price: {
-          type: Number,
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          required: true,
-        },
-      },
-    ],
+      ],
+      validate: (v) => Array.isArray(v) && v.length > 0,
+    },
     image: {
       type: String,
       required: true,
