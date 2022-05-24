@@ -20,10 +20,12 @@ const UserListPage = () => {
     } else {
       navigate("/login");
     }
-  }, [dispatch, navigate, successDelete]);
+  }, [dispatch, navigate, successDelete, userInfo]);
 
   const deleteHandler = (id) => {
-    dispatch(deleteUser(id));
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteUser(id));
+    }
   };
   return (
     <>
@@ -65,7 +67,7 @@ const UserListPage = () => {
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/user/${user._id}/edit`}>
+                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant='light' className='btn-sm'>
                       <i className='fa-solid fa-pen-to-square'></i>
                     </Button>
