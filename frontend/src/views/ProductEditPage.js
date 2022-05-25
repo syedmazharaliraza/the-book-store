@@ -7,6 +7,7 @@ import Loader from "../components/ui/Loader";
 import FormContainer from "../components/FormContainer";
 import { listProduct, updateProduct } from "../actions/productActions";
 import { UPDATE_PRODUCT_RESET } from "../constants/productConstants";
+import axios from "axios";
 
 const ProductEditPage = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const ProductEditPage = () => {
   const [genre, setGenre] = useState("");
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -54,6 +56,29 @@ const ProductEditPage = () => {
       setSkuList([...skuList, sku]);
     } else {
       setMessage("All fields are mandatory!");
+    }
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post("/api/upload", formData, config);
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
     }
   };
 
@@ -121,6 +146,13 @@ const ProductEditPage = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+              <Form.Control
+                type='file'
+                label='Choose File'
+                custom='true'
+                onChange={uploadFileHandler}
+              ></Form.Control>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group className='my-3' controlId='description'>
