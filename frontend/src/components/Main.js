@@ -15,6 +15,7 @@ import UserListPage from "../views/UserListPage";
 import EditUserPage from "../views/EditUserPage";
 import ProductListPage from "../views/ProductListPage";
 import ProductEditPage from "../views/ProductEditPage";
+import OrderListPage from "../views/OrderListPage";
 
 const Main = () => {
   return (
@@ -39,6 +40,7 @@ const Main = () => {
             <Route path='user/:id/edit' element={<EditUserPage />} />
             <Route path='productList' element={<ProductListPage />} />
             <Route path='product/:id/edit' element={<ProductEditPage />} />
+            <Route path='OrderList' element={<OrderListPage />} />
           </Route>
         </Routes>
       </Container>

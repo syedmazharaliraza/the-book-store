@@ -1,5 +1,7 @@
 import Product from "../models/productModel.js";
 import asyncHandler from "express-async-handler";
+import path from "path";
+import { unlinkSync } from "fs";
 
 export const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({});
@@ -19,6 +21,11 @@ export const getProductById = asyncHandler(async (req, res) => {
 export const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
+    if (product.image.includes("/uploads")) {
+      const __dirname = path.resolve();
+      const filePath = path.join(__dirname, product.image);
+      unlinkSync(filePath);
+    }
     await product.deleteOne();
     res.json({ message: "Product removed" });
   } else {

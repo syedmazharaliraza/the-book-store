@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import Message from "../components/ui/Message";
 import Loader from "../components/ui/Loader";
-import { getOrderDetails, payOrder } from "../actions/orderActions";
+import {
+  deliverOrder,
+  getOrderDetails,
+  payOrder,
+} from "../actions/orderActions";
 import axios from "axios";
-import { ORDER_PAY_RESET } from "../constants/orderConstants";
+import {
+  ORDER_DELIVER_RESET,
+  ORDER_PAY_RESET,
+} from "../constants/orderConstants";
 import { PayPalButton } from "react-paypal-button-v2";
 
 const OrderPage = () => {
@@ -20,6 +27,9 @@ const OrderPage = () => {
     (state) => state.orderPay
   );
   const { userInfo } = useSelector((state) => state.userLogin);
+  const { loading: loadingDeliver, success: successDeliver } = useSelector(
+    (state) => state.orderDeliver
+  );
 
   const [clientId, setClientId] = useState("");
 
@@ -33,14 +43,19 @@ const OrderPage = () => {
     };
     getClientId();
 
-    if (!order || successPay || order._id !== id) {
+    if (!order || successPay || successDeliver || order._id !== id) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(id));
     }
-  }, [navigate, userInfo, dispatch, id, order, successPay]);
+  }, [navigate, userInfo, dispatch, id, order, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(id, paymentResult));
+  };
+
+  const deliverHandler = (paymentResult) => {
+    dispatch(deliverOrder(id));
   };
 
   return loading ? (
@@ -174,6 +189,21 @@ const OrderPage = () => {
                   )}
                 </ListGroup.Item>
               )}
+              {loadingDeliver && <Loader />}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item className='d-grid gap-2'>
+                    <Button
+                      type='button'
+                      className='btn'
+                      onClick={deliverHandler}
+                    >
+                      Mark As Delivered
+                    </Button>
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>
