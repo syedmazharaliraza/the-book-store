@@ -119,7 +119,7 @@ const ProductEditPage = () => {
           <Message variant='danger'>{errorUpdate}</Message>
         ) : (
           updatedProduct && (
-            <Message variant='danger'>Product updated successfully</Message>
+            <Message variant='success'>Product updated successfully</Message>
           )
         )}
         {loading ? (
