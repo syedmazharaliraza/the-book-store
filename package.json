@@ -2,16 +2,20 @@
   "name": "e-commerce",
   "version": "1.0.0",
   "description": "E-commerce MERN project",
-  "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "15.7.0",
+    "npm": "7.4.3"
+    },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/app",
-    "server": "nodemon backend/app",
+    "start": "node backend/app.js",
+    "server": "nodemon backend/app.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
+    "data:destroy": "node backend/seeder -d",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",

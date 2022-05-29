@@ -137,7 +137,7 @@ const ProductPage = () => {
                         >
                           {[...Array(product.sku[0].quantity).keys()].map(
                             (value) => (
-                              <option>{value + 1}</option>
+                              <option key={value}>{value + 1}</option>
                             )
                           )}
                         </Form.Control>
