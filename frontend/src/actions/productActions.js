@@ -11,6 +11,9 @@ import {
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_FAILED,
+  PRODUCT_ADD_REVIEW_REQUEST,
+  PRODUCT_ADD_REVIEW_SUCCESS,
+  PRODUCT_ADD_REVIEW_FAILED,
 } from "../constants/productConstants";
 
 import {
@@ -111,3 +114,23 @@ export const updateProduct = (id, product) => async (dispatch, getState) => {
     });
   }
 };
+
+export const addReviewToProduct =
+  (id, review) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: PRODUCT_ADD_REVIEW_REQUEST });
+      const resp = await axios.put(`/api/products/${id}/review`, review, {
+        headers: {
+          Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+        },
+      });
+      dispatch({ type: PRODUCT_ADD_REVIEW_SUCCESS, payload: resp.data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_ADD_REVIEW_FAILED,
+        payload: error.response.data.message
+          ? error.response.data.message
+          : error.message,
+      });
+    }
+  };
