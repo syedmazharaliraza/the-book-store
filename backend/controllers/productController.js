@@ -80,3 +80,32 @@ export const updateProduct = asyncHandler(async (req, res) => {
     throw new Error("Product not found");
   }
 });
+
+export const createReviewOfProduct = asyncHandler(async (req, res) => {
+  const { comment, rating } = req.body;
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    if (!product.reviews.find((review) => review.user === req.user._id)) {
+      const newReview = {
+        user: req.user._id,
+        rating: Number(rating),
+        comment,
+      };
+      product.reviews.push(newReview);
+      product.numOfRatings = product.reviews.length;
+      product.rating =
+        product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+        product.reviews.length;
+
+      await product.save();
+      res.json("Review added successfully");
+    } else {
+      res.status(404);
+      throw new Error("User has already reviewed");
+    }
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
