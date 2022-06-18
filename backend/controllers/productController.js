@@ -89,6 +89,7 @@ export const createReviewOfProduct = asyncHandler(async (req, res) => {
     if (!product.reviews.find((review) => review.user === req.user._id)) {
       const newReview = {
         user: req.user._id,
+        name: req.user.name,
         rating: Number(rating),
         comment,
       };

@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    name: { type: String, required: true },
     rating: {
       type: Number,
       required: true,
