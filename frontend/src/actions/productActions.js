@@ -119,12 +119,12 @@ export const addReviewToProduct =
   (id, review) => async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_ADD_REVIEW_REQUEST });
-      const resp = await axios.put(`/api/products/${id}/review`, review, {
+      await axios.put(`/api/products/${id}/review`, review, {
         headers: {
           Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
         },
       });
-      dispatch({ type: PRODUCT_ADD_REVIEW_SUCCESS, payload: resp.data });
+      dispatch({ type: PRODUCT_ADD_REVIEW_SUCCESS });
     } catch (error) {
       dispatch({
         type: PRODUCT_ADD_REVIEW_FAILED,

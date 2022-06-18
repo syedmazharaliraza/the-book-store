@@ -22,9 +22,6 @@ const app = express();
 
 // Middlewares
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
 app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
