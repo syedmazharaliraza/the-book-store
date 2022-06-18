@@ -117,10 +117,10 @@ export const productUpdateReducer = (state = {}, action) => {
   }
 };
 
-export const producAddReviewReducer = (state = {}, action) => {
+export const productAddReviewReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_ADD_REVIEW_REQUEST:
-      return { loading: false };
+      return { loading: true };
 
     case PRODUCT_ADD_REVIEW_SUCCESS:
       return { loading: false, success: true };
